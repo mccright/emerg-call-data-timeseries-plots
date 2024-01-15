@@ -1,12 +1,12 @@
-# Emergency Data Timeseries charts
+# Emergency Data Timeseries plots
 
-#### Started with "Light timeseries charts"  
+#### Started with "Light timeseries plots"  
 Original by Fabio Arciniegas  
 Original at: https://github.com/fabioarciniegas/light_timeseries_charts/tree/master  
 
 ## Assembled for quick aggregation of Lincoln County, Nebraska Emergency Service Response Data
 
-Plot diagrams using arbitrary time series data of the form:
+Plot diagrams using time series data having the layout below:
 
 ``` csv
 "incident_date","response_unit","dispatch_time","time_in_service"
@@ -31,12 +31,12 @@ Plot diagrams using arbitrary time series data of the form:
 
 ```
 
-This was assembled to consolidate some of the Lincoln County, Nebraska emergency service response data into simple time series charts.  
+This was assembled to consolidate some of the Lincoln County, Nebraska emergency service response data into simple time series plots.  
 
-The data is contained in a csv file, generating a single png output.
+The input data is in a csv file.  The output is in png files.
 
 Normally response_unit is the name of a given team, dispatch_time is when they received a call for service and time_in_service is the amount of time a given response_unit spent on that given service.
 
 
-![Sample Output](sample_output/basic.png)
+![trial report](reports/trial.png)
 
