@@ -16,25 +16,31 @@
 #  Time_In_Service --> isolate "team" and "time" components
 
 from pathlib import Path
-import ast
+# import ast
 import sys
 import os
 import pandas as pd
 import datetime
-import numpy as np
+# import numpy as np
 import shutil
 
 
+# provide both local time and UTC time to better support
+# distributed operations
 start = datetime.datetime.now()
+start_utc = datetime.datetime.now(datetime.timezone.utc)
 dir_path = os.getcwd()
 
 
-def create_target_csv_data_file(csvfile_suffix: object) -> object:
-    """
+def create_target_csv_data_file(csvfile_suffix: str) -> object:
+    """Creates a path/file object with filename day-month-year
 
+    Builds the filename with {date}_{csvfile_suffix}.
+    Appends the filename to the current directory.
+    :param csvfile_suffix: str
     :rtype: object
     """
-    # create a file with date as a name day-month-year
+    #
     filename_suffix = csvfile_suffix
     filename_prefix = start.strftime('%Y-%m-%d')
     filename = f"{filename_prefix}_{filename_suffix}"
@@ -55,32 +61,48 @@ def minimum_py(min_python_major_version=3, min_python_minor_version=10):
         return True
 
 
-def print_separator_line():
-    print(f'- - - - - - - - - - - - - - - - - - - - - - - -')
+def print_separator_line() -> str:
+    print_separator = f'- - - - - - - - - - - - - - - - - - - - - - - -'
+    return print_separator
 
 
-def report_start(dirpath):
-    # Documenting the start & end time
-    print("\r\n")
-    print_separator_line()
-    # print("-------------------------------------------------------------")
-    print(__file__ + " Report started at: %s" % start)
-    print("Root of target filesystem: %s" % dirpath)
-    print_separator_line()
-    # print("-------------------------------------------------------------")
-    ## print("\r\n")
+def report_start(dirpath: str) ->:
+    """Documenting the report start time.
+
+    Provides both local time and UTC time for distributed operations.
+    Assumes "start" and "start_utc" are set at the top of the script.
+    :param dirpath: root of target filesystem
+    :type  dirpath: str
+    :return report_start_msg: start of report message content
+    :type  report_start_msg: str
+    """
+    report_start_msg = f"\n\n{print_separator_line()}\n"
+    report_start_msg = report_start_msg + f"{__file__}\n"
+    report_start_msg = report_start_msg + f"Report started at: {start} local, {start_utc} UTC\n"
+    report_start_msg = report_start_msg + f"Root of target filesystem: {dirpath}\n"
+    report_start_msg = report_start_msg + f"{print_separator_line()}"
+    return report_start_msg
 
 
-def report_end(csvfile):
+def report_end(csvfile: str) -> str:
+    """Documenting the report end time.
+
+    "csvfile" is .
+    Provides both local time and UTC time for distributed operations.
+    :param csvfile: the report's full path + filename
+    :type csvfile: str
+    :return report_end_msg: end of report message content
+    :type report_end_msg: str
+    """
     script_ended = datetime.datetime.now()
-    print_separator_line()
-    # print("-------------------------------------------------------------")
-    print(__file__ + " Report ended at: %s" % script_ended)
-    print("Search Report took: %s " % str(script_ended - start))
-    print("Target Report Files: %s" % csvfile)
-    print_separator_line()
-    # print("-------------------------------------------------------------")
-    print("\r\n")
+    script_ended_utc = datetime.datetime.now(datetime.timezone.utc)
+    report_end_msg = f"\n\n{print_separator_line()}\n"
+    report_end_msg = report_end_msg + f"{__file__}\n"
+    report_end_msg = report_end_msg + f"Report ended at: {script_ended} local, {script_ended_utc} UTC\n"
+    report_end_msg = report_end_msg + f"Search Report took: {(script_ended - start)}\n"
+    report_end_msg = report_end_msg + f"Target Report Files: {csvfile}\n"
+    report_end_msg = report_end_msg + f"{print_separator_line()}"
+    return report_end_msg
 
 def data_description(data_frame):
     # Overview of the data:
@@ -124,14 +146,14 @@ def convert_column_to_date(data_frame):
     # print(f'Overview of the data {data_frame.info()}')
     return data_frame
 
-
+"""
 def convert_date_string_to_date(data_frame):
     # From: https://stackoverflow.com/questions/36753868/python-convert-dictionary-of-string-times-to-date-times
     dates = data_frame['incident_date']
     for date in dates:
         date['incident_date'] = datetime.strptime(date['incident_date'], "%Y-%m-%d hh:mm [am|pm]")
     data_description(data_frame)
-
+"""
 
 def get_only_dates(data_frame):
     dates = data_frame['incident_date']
@@ -141,13 +163,13 @@ def get_only_dates(data_frame):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
+    print(f"{report_start(dir_path)}")
     # Enforce a minimum Python version
     min_major_version = 3
     min_minor_version = 10
     minimum_py(min_major_version, min_minor_version)
     # Use a set: collection of unordered unique elements without duplicates {}
     emergency_data_list = []
-    report_start(dir_path)
     csv_data_filename_suffix: str = 'emerg_data_organized.csv'
     csv_data_filename: object = create_target_csv_data_file(csv_data_filename_suffix)
     # Get the source csv file and assign it to a dataframe called emergency_data
@@ -286,6 +308,6 @@ if __name__ == '__main__':
         print(f'Did not find {target_file} in the path. Returned: {fprUtil}')
     else:
         print(f'Found: {fprUtil}')
-    report_end(dir_path)
+    print(f"{report_end(str(csv_data_filename))}")
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
