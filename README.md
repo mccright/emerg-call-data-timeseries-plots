@@ -4,9 +4,11 @@
 Original by Fabio Arciniegas  
 Original at: https://github.com/fabioarciniegas/light_timeseries_charts/tree/master  
 
-## Assembled for quick aggregation of Lincoln County, Nebraska Emergency Service Response Data
+Moved on to work with  [Seaborn](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Seaborn_Cheat_Sheet.pdf)  
 
-Plot diagrams using time series data having the layout below:
+## Assembled for quick aggregation of Lincoln County, Nebraska Emergency Service Response Data  
+
+Plot diagrams using time series data having the layout below:  
 
 ``` csv
 "incident_date","response_unit","dispatch_time","time_in_service"
@@ -33,10 +35,10 @@ Plot diagrams using time series data having the layout below:
 
 This was assembled to consolidate some of the Lincoln County, Nebraska emergency service response data into simple time series plots.  
 
-The input data is in a csv file.  The output is in png files.
+The input data is in a csv file.  The output is in png files.  
 
-Normally response_unit is the name of a given team, dispatch_time is when they received a call for service and time_in_service is the amount of time a given response_unit spent on that given service.
+Normally response_unit is the name of a given team, dispatch_time is when they received a call for service and time_in_service is the amount of time a given response_unit spent on that given service.  
 
 
-![trial report](reports/trial.png)
+![trial report](reports/trial.png)  
 
