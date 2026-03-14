@@ -1,44 +1,46 @@
-# Emergency Data Timeseries plots
+# Emergency Data Timeseries plots  
+
+Foundational assumptions:  
+* No cloud subscriptions required.  
+* Run on relatively modern common endpoints (*no server required*).  
+* Use a *popular* programming language to increase the probability of handing off this effort to others.  
 
 #### Started with "Light timeseries plots"  
-Original by Fabio Arciniegas  
+
+I started with a model by Fabio Arciniegas  
 Original at: https://github.com/fabioarciniegas/light_timeseries_charts/tree/master  
 
-Moved on to work with  [Seaborn](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Seaborn_Cheat_Sheet.pdf)  
+Then I moved on to work with  [Seaborn](https://s3.amazonaws.com/assets.datacamp.com/blog_assets/Python_Seaborn_Cheat_Sheet.pdf).  
+
+I could not get these to work in a user-friendly way for this research (*my skills were the limitation, not the software*).  
+
+#### Moved on to Plotly and Dash  
+After a *LONG* delay, I got back to this work and tried using [Plotly](https://plotly.com/python/) and [Dash](https://dash.plotly.com/tutorial?_gl=1*1jkxxvd*_gcl_au*Nzk5MjM3NjgxLjE3NzMyNTY5Nzg.*_ga*MTMzMDYyNjMzMi4xNzczMjU2OTc4*_ga_6G7EE0JNSC*czE3NzM0MjA1MzgkbzMkZzAkdDE3NzM0MjA1MzgkajYwJGwwJGgw).  
+
+With a lot of bumbling the code in this repo is getting close to doing something useful.  
+
+![Example plot](example_plot_1.png)  
+
 
 ## Assembled for quick aggregation of Lincoln County, Nebraska Emergency Service Response Data  
 
 Plot diagrams using time series data having the layout below:  
 
-``` csv
-"incident_date","response_unit","dispatch_time","time_in_service"
-"01/01/10","M5","07:05:17","00:04:56"
-"01/01/10","WAVE1","06:51:33","00:20:10"
-"01/01/10","WAVE12","06:51:33","01:26:48"
-"01/01/10","GRE310","07:56:42","00:06:56"
-"01/01/10","WAVE1","07:56:42","00:11:42"
-"01/01/10","WAVE11","08:05:59","00:59:47"
-"01/01/10","MWM31","09:51:58","02:08:33"
-"01/01/10","PLEA1","09:51:58","00:40:12"
-"01/01/10","PLEA2","09:51:58","00:40:17"
-"01/01/10","SE1","15:48:32","00:20:35"
-"01/01/10","SE11","15:48:32","00:20:06"
-"01/01/10","SE12","15:58:26","00:33:07"
-"01/01/10","B1","20:22:57","00:00:05"
-"01/02/10","8707","02:02:55","02:48:52"
-"01/02/10","CERE1","01:41:51","02:58:42"
-"01/02/10","RAYM1","01:46:16","01:52:36"
-"01/02/10","WAVE1","01:46:16","01:07:18"
-"01/02/10","SW1","16:33:09","00:26:58"
+```csv
+
+ToDo: insert the "real" data layout example here.  
 
 ```
 
-This was assembled to consolidate some of the Lincoln County, Nebraska emergency service response data into simple time series plots.  
+The data used here is the output of code in another repository: [github.com/mccright/emerg-call-data-review](https://github.com/mccright/emerg-call-data-review).  
+This data was assembled to consolidate some of the raw Lincoln County, Nebraska emergency service response data into simple time series plots.  
 
-The input data is in a csv file.  The output is in png files.  
+The input data is in a csv file.  The output is in a dynamic web app presenting plots by "response_unit."  The web app runs locally on a Windows PC, a Mac or a Linux endpoint.  
 
-Normally response_unit is the name of a given team, dispatch_time is when they received a call for service and time_in_service is the amount of time a given response_unit spent on that given service.  
+Data assumptions:  
+* ```incident_date``` is the date of a given call for emergency service(s).  
+* ```response_unit``` is the name of a given team.  
+* ```response_time``` is the time from the initial call for service and the reply from a given response_unit.  
+* ```time_in_service``` is the amount of time a given response_unit spent on that given service.  
 
-
-![trial report](reports/trial.png)  
 
